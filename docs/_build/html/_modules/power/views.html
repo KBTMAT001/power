@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>power.views &mdash; Power 00.00.01 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Power
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">power</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Power</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">power.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for power.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span><span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">DetailView</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span><span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">get_object_or_404</span><span class="p">,</span><span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">logout</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Enquiry</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="c1"># Create your views here.</span>
+
+
+
+<div class="viewcode-block" id="home"><a class="viewcode-back" href="../../power.html#power.views.home">[docs]</a><span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A view for returning the home page which is a static HTML file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;home.html&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="input"><a class="viewcode-back" href="../../power.html#power.views.input">[docs]</a><span class="k">def</span> <span class="nf">input</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A view for handling a request to perform a calculation. The input sheet is rendered if the user is authenticated and a login page is rendered if the user is not. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;calculation/input.html&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;authentication/login_need.html&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="backend"><a class="viewcode-back" href="../../power.html#power.views.backend">[docs]</a><span class="k">def</span> <span class="nf">backend</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the calculation depending on the selected options by the user.</span>
+
+<span class="sd">    :param profile_in: type of user power consumption profile</span>
+<span class="sd">    :type profile_in: str</span>
+<span class="sd">    :param demand_in: amount of power used in MW per month</span>
+<span class="sd">    :type demand_in: int</span>
+<span class="sd">    :param saving: savings in rand for the user</span>
+<span class="sd">    :type saving: int</span>
+<span class="sd">    :return: all submitted details as well as savings</span>
+<span class="sd">    :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">company_in</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">]</span>
+    <span class="n">profile_in</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;profile&#39;</span><span class="p">]</span>
+    <span class="n">demand_in</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">profile_in</span> <span class="o">==</span> <span class="s2">&quot;residential&quot;</span><span class="p">:</span>
+        <span class="n">saving</span> <span class="o">=</span> <span class="n">demand_in</span><span class="o">*</span><span class="mi">5</span>
+    <span class="k">elif</span> <span class="n">profile_in</span> <span class="o">==</span> <span class="s2">&quot;industrial&quot;</span><span class="p">:</span>
+        <span class="n">saving</span> <span class="o">=</span> <span class="n">demand_in</span><span class="o">*</span><span class="mi">10</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">saving</span> <span class="o">=</span> <span class="n">demand_in</span><span class="o">*</span><span class="mi">100</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;calculation/backend.html&#39;</span><span class="p">,{</span><span class="s2">&quot;saving&quot;</span><span class="p">:</span><span class="n">saving</span><span class="p">,</span><span class="s2">&quot;profile&quot;</span><span class="p">:</span><span class="n">profile_in</span><span class="p">,</span><span class="s2">&quot;demand&quot;</span><span class="p">:</span><span class="n">demand_in</span><span class="p">,</span><span class="s2">&quot;company&quot;</span><span class="p">:</span><span class="n">company_in</span><span class="p">})</span></div>
+    
+<div class="viewcode-block" id="log_out"><a class="viewcode-back" href="../../power.html#power.views.log_out">[docs]</a><span class="k">def</span> <span class="nf">log_out</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for handling logout requests.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;authentication/logout.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="enquiry"><a class="viewcode-back" href="../../power.html#power.views.enquiry">[docs]</a><span class="k">def</span> <span class="nf">enquiry</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles user enquiries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;enquiry.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="submit"><a class="viewcode-back" href="../../power.html#power.views.submit">[docs]</a><span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logs an enquiry in the database. </span>
+
+<span class="sd">    :param company_in: the name of the company of the user</span>
+<span class="sd">    :type company_in: str</span>
+<span class="sd">    :param person_in: the name of the contact person</span>
+<span class="sd">    :type person_in: str</span>
+<span class="sd">    :param email_in: email of the contact person</span>
+<span class="sd">    :type email_in: str</span>
+<span class="sd">    :return: submitted details by user</span>
+<span class="sd">    :rtype: str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">company_in</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">]</span>
+    <span class="n">person_in</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;person&#39;</span><span class="p">]</span>
+    <span class="n">email_in</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]</span>
+    
+    <span class="n">Enquiry</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">company</span> <span class="o">=</span> <span class="n">company_in</span><span class="p">,</span><span class="n">date_sent</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span><span class="n">person</span> <span class="o">=</span> <span class="n">person_in</span><span class="p">,</span><span class="n">email</span> <span class="o">=</span> <span class="n">email_in</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;confirmation.html&#39;</span><span class="p">,{</span><span class="s2">&quot;company&quot;</span><span class="p">:</span><span class="n">company_in</span><span class="p">,</span><span class="s2">&quot;person&quot;</span><span class="p">:</span><span class="n">person_in</span><span class="p">,</span><span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="n">email_in</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="overview"><a class="viewcode-back" href="../../power.html#power.views.overview">[docs]</a><span class="k">def</span> <span class="nf">overview</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Allows a staff member to review all enquiries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_staff</span><span class="p">:</span>
+        <span class="n">latest_enquiry_list</span> <span class="o">=</span> <span class="n">Enquiry</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-date_sent&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">context</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;latest_enquiry_list&#39;</span><span class="p">:</span><span class="n">latest_enquiry_list</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;overview.html&#39;</span><span class="p">,</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;authentication/login_need_admin.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="mtest"><a class="viewcode-back" href="../../power.html#power.views.mtest">[docs]</a><span class="k">def</span> <span class="nf">mtest</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns an html indicating a successful registration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s1">&#39;registration/register_success.html&#39;</span><span class="p">)</span></div>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Matthew Kabot.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -12,10 +12,15 @@ from datetime import datetime
 
 
 def home(request):
+    """A view for returning the home page which is a static HTML file.
+    """
     return render(request, 'home.html')
 
 
 def input(request):
+    """
+    A view for handling a request to perform a calculation. The input sheet is rendered if the user is authenticated and a login page is rendered if the user is not. 
+    """
     if request.user.is_authenticated:
         return render(request,'calculation/input.html')
     else:
@@ -23,6 +28,20 @@ def input(request):
 
 
 def backend(request):
+    """
+    Handles the calculation depending on the selected options by the user.
+
+    :param profile_in: type of user power consumption profile
+    :type profile_in: str
+    :param demand_in: amount of power used in MW per month
+    :type demand_in: int
+    :param saving: savings in rand for the user
+    :type saving: int
+    :return: all submitted details as well as savings
+    :rtype: str
+
+    """
+
     company_in = request.POST['company']
     profile_in = request.POST['profile']
     demand_in = int(request.POST['demand'])
@@ -37,13 +56,34 @@ def backend(request):
     return render(request,'calculation/backend.html',{"saving":saving,"profile":profile_in,"demand":demand_in,"company":company_in})
     
 def log_out(request):
+    """
+    View for handling logout requests.
+    """
+
     logout(request)
     return render(request, 'authentication/logout.html')
 
 def enquiry(request):
+    """
+    Handles user enquiries.
+    """
     return render(request,'enquiry.html')
 
 def submit(request):
+    """
+    Logs an enquiry in the database. 
+
+    :param company_in: the name of the company of the user
+    :type company_in: str
+    :param person_in: the name of the contact person
+    :type person_in: str
+    :param email_in: email of the contact person
+    :type email_in: str
+    :return: submitted details by user
+    :rtype: str
+
+    """
+
     company_in = request.POST['company']
     person_in = request.POST['person']
     email_in = request.POST['email']
@@ -53,6 +93,10 @@ def submit(request):
     return render(request,'confirmation.html',{"company":company_in,"person":person_in,"email":email_in})
 
 def overview(request):
+    """
+    Allows a staff member to review all enquiries
+    """
+
     if request.user.is_staff:
         latest_enquiry_list = Enquiry.objects.order_by('-date_sent')[:5]
         context ={'latest_enquiry_list':latest_enquiry_list}
@@ -61,6 +105,9 @@ def overview(request):
         return render(request,'authentication/login_need_admin.html')
 
 def mtest(request):
+    """
+    Returns an html indicating a successful registration.
+    """
     return render(request,'registration/register_success.html')
 
     

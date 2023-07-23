@@ -8,9 +8,15 @@ from .forms import RegistrationForm
 
 # Create your views here.
 def register_home(request):
+    """
+    Returns the register html.
+    """
     return render(request, 'authentication/register.html')
 
 def register(request):
+    """
+    Handles registration inputs and returns success or the registration page again.
+    """
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -21,7 +27,7 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
     
 def show_user(request):
-    print(request.user.username)
+    #print(request.user.username)
     return render(request, 'authentication/user.html', {
         "username": request.user.username,
         "password": request.user.password
