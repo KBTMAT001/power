@@ -1,0 +1,129 @@
+
+  /* Main element styles */
+  body {
+    background-color: #c4fffc;
+    color: #2b7a78;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position:relative;
+  }
+
+  .footer {
+    background-color: #2b7a78;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    height: 50px; /* Set the desired height of the footer */
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:10px
+  }
+
+  header {
+    background-color: #2b7a78;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+  }
+
+  html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -50px; /* Adjust this value to accommodate the height of the footer */
+}
+
+.row{
+  display:flex;
+}
+
+.column{
+  flex:1;
+}
+  
+  /* Font styles */
+
+  h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  h2{
+    font-size:20px
+  }
+  
+ 
+  /* Element styles */
+  .button {
+    background-color: #2b7a78;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    background-color: #25706a;
+  }
+
+  .td-custom{
+    color: #2b7a78;
+    font-size:15px;
+    font-family: Arial;
+  }
+
+  .navbar .navbar-brand {
+    color: white;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    color: white;
+  }
+  
+  
+
+  /* Custom Styles */
+
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .custom {
+
+    text-align: center;
+    color: #2b7a78;
+    padding: 20px;
+
+  }
+
+  .custom-table{
+    border-color: #FF0000
+  }
+
+   /* Options styles */
+   .option {
+    margin-bottom: 10px;
+  }
+  
+  .option label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .option input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+
+
