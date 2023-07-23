@@ -165,8 +165,21 @@
 <span id="power-models-module"></span><h2>power.models module<a class="headerlink" href="#module-power.models" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="power.models.Enquiry">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">power.models.</span></span><span class="sig-name descname"><span class="pre">Enquiry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">company</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_sent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">person</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/power/models.html#Enquiry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#power.models.Enquiry" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">power.models.</span></span><span class="sig-name descname"><span class="pre">Enquiry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/power/models.html#Enquiry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#power.models.Enquiry" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>A model representing an Enquiry.</p>
+<p>This class defines the fields for an Enquiry object, which represents an enquiry
+or inquiry made by a person or company.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company</strong> (<em>str</em>) – The company name associated with the enquiry.</p></li>
+<li><p><strong>date_sent</strong> (<em>datetime.datetime</em>) – The date and time the enquiry was sent.</p></li>
+<li><p><strong>person</strong> (<em>str</em>) – The name of the person associated with the enquiry.</p></li>
+<li><p><strong>email</strong> (<em>str</em>) – The email address associated with the enquiry.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py exception">
 <dt class="sig sig-object py" id="power.models.Enquiry.DoesNotExist">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#power.models.Enquiry.DoesNotExist" title="Permalink to this definition"></a></dt>

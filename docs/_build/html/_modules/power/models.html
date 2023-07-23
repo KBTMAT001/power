@@ -73,12 +73,38 @@
 
 <span class="c1"># Create your models here.</span>
 <div class="viewcode-block" id="Enquiry"><a class="viewcode-back" href="../../power.html#power.models.Enquiry">[docs]</a><span class="k">class</span> <span class="nc">Enquiry</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A model representing an Enquiry.</span>
+
+<span class="sd">    This class defines the fields for an Enquiry object, which represents an enquiry</span>
+<span class="sd">    or inquiry made by a person or company.</span>
+
+<span class="sd">    :param company: The company name associated with the enquiry.</span>
+<span class="sd">    :type company: str</span>
+<span class="sd">    :param date_sent: The date and time the enquiry was sent.</span>
+<span class="sd">    :type date_sent: datetime.datetime</span>
+<span class="sd">    :param person: The name of the person associated with the enquiry.</span>
+<span class="sd">    :type person: str</span>
+<span class="sd">    :param email: The email address associated with the enquiry.</span>
+<span class="sd">    :type email: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">company</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
     <span class="n">date_sent</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="s1">&#39;date_sent&#39;</span><span class="p">)</span>
     <span class="n">person</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
     <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the Enquiry.</span>
+
+<span class="sd">        This method returns the company name as the string representation of the Enquiry</span>
+<span class="sd">        object, which can be useful for displaying the Enquiry in the admin interface</span>
+<span class="sd">        or other contexts.</span>
+
+<span class="sd">        :return: The company name of the Enquiry.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">company</span></div>
 </pre></div>
 
